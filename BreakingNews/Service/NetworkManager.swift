@@ -53,12 +53,12 @@ class NetworkManager {
 
         task.resume()
     }
-    
+    //Top headlines
     func getTopHeadlines(country: String, category: String, apiKey: String, completion: @escaping NetworkCompletion<NewsModel>) {
         let endpoint = Endpoint.getTopHeadlines(country: country, category: category, apiKey: apiKey)
         request(endpoint, completion: completion)
     }
-    
+    //Everything
     func getEverything(q: String, apiKey: String, completion: @escaping NetworkCompletion<NewsModel>) {
         let endpoint = Endpoint.getEverything(q: q, apiKey: apiKey)
         request(endpoint, completion: completion)
