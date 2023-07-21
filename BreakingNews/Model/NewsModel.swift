@@ -10,21 +10,23 @@ import Foundation
 struct NewsModel: Codable {
     let status: String
     let totalResults: Int
-    let articles: [Article]
+    let articles: [ArticleModel]
 }
 
 // MARK: - Article
-struct Article: Codable {
+struct ArticleModel: Codable {
+    //MARK: BURADA BİR SORUN VAR BUNU ÇÖZ
     //let source: Source
     let author, title, description: String?
     let url: String
     let urlToImage: String?
+    //MARK: BURADA BİR SORUN VAR BUNU ÇÖZ
     //let publishedAt: Date
     let content: String?
 }
 
 // MARK: - Source
-struct Source: Codable {
+struct SourceModel: Codable {
     let id: JSONNull?
     let name: String
 }

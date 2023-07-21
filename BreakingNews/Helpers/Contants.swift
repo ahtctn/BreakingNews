@@ -13,6 +13,10 @@ enum Constants {
     
     static let pathGetTopHeadlines: String = "/v2/top-headlines"
     static let pathGetEverything: String = "/v2/everything"
+    
+    //MARK: TABLE VIEW
+    static let cellID: String = "TableViewCellID"
 }
+
 
 //https://newsapi.org/v2/top-headlines?country=tr&apiKey=a1bda5682f6d4ad390961ef9a1dff965
