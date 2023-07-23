@@ -11,13 +11,18 @@ class NewsViewController: UIViewController {
     
     let viewModel = NewsViewModel()
     
-    private let images: [UIImage] = [
-        UIImage(systemName: "person.fill")!,
-        UIImage(systemName: "person.fill")!,
-        UIImage(systemName: "person.fill")!,
-        UIImage(systemName: "person.fill")!,
-        UIImage(systemName: "person.fill")!
-    ]
+    var countryCode: String?
+    var categoryCode: String?
+    
+    init(countryCode: String? = nil, categoryCode: String? = nil) {
+        self.countryCode = countryCode
+        self.categoryCode = categoryCode
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     //MARK: OUTLETS
     
@@ -32,7 +37,7 @@ class NewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.getTopHeadlines()
+        
         observeEvent()
         setUI()
         
@@ -48,7 +53,7 @@ class NewsViewController: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
-    
+        
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
@@ -59,6 +64,7 @@ class NewsViewController: UIViewController {
     
     //MARK: VIEWMODEL BINDING SECTION
     func observeEvent() {
+        viewModel.getTopHeadlines(country: countryCode ?? "error", category: categoryCode ?? "error")
         viewModel.eventHandler = { [weak self] event in
             switch event {
             case .loading:
@@ -97,7 +103,10 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedArticle = self.viewModel.articleCell(at: indexPath.row)
+        let detailVC = DetailViewController(article: selectedArticle)
+        self.navigationController?.pushViewController(detailVC, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

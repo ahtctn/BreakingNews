@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B58CF6B2A6D5995006EF42E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58CF6A2A6D5995006EF42E /* DetailViewController.swift */; };
 		7BDC1A362A6AAC50005C06C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDC1A352A6AAC50005C06C4 /* AppDelegate.swift */; };
 		7BDC1A382A6AAC50005C06C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDC1A372A6AAC50005C06C4 /* SceneDelegate.swift */; };
 		7BDC1A3A2A6AAC50005C06C4 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDC1A392A6AAC50005C06C4 /* NewsViewController.swift */; };
@@ -22,9 +23,11 @@
 		7BDC1A632A6B3BE1005C06C4 /* MultipleSubviewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDC1A622A6B3BE1005C06C4 /* MultipleSubviewExtension.swift */; };
 		7BDC1A662A6B3F94005C06C4 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDC1A652A6B3F94005C06C4 /* NewsTableViewCell.swift */; };
 		7BDC1A682A6B4234005C06C4 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDC1A672A6B4234005C06C4 /* NewsViewModel.swift */; };
+		7BDC1A6A2A6B4C68005C06C4 /* NewsCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDC1A692A6B4C68005C06C4 /* NewsCategoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7B58CF6A2A6D5995006EF42E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		7BDC1A322A6AAC50005C06C4 /* BreakingNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreakingNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BDC1A352A6AAC50005C06C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7BDC1A372A6AAC50005C06C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +44,7 @@
 		7BDC1A622A6B3BE1005C06C4 /* MultipleSubviewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSubviewExtension.swift; sourceTree = "<group>"; };
 		7BDC1A652A6B3F94005C06C4 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		7BDC1A672A6B4234005C06C4 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
+		7BDC1A692A6B4C68005C06C4 /* NewsCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCategoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +129,8 @@
 			isa = PBXGroup;
 			children = (
 				7BDC1A392A6AAC50005C06C4 /* NewsViewController.swift */,
+				7BDC1A692A6B4C68005C06C4 /* NewsCategoryViewController.swift */,
+				7B58CF6A2A6D5995006EF42E /* DetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -247,12 +253,14 @@
 				7BDC1A522A6AAD24005C06C4 /* NetworkManager.swift in Sources */,
 				7BDC1A3A2A6AAC50005C06C4 /* NewsViewController.swift in Sources */,
 				7BDC1A362A6AAC50005C06C4 /* AppDelegate.swift in Sources */,
+				7BDC1A6A2A6B4C68005C06C4 /* NewsCategoryViewController.swift in Sources */,
 				7BDC1A632A6B3BE1005C06C4 /* MultipleSubviewExtension.swift in Sources */,
 				7BDC1A682A6B4234005C06C4 /* NewsViewModel.swift in Sources */,
 				7BDC1A612A6B3ABA005C06C4 /* UIImageViewExtension.swift in Sources */,
 				7BDC1A382A6AAC50005C06C4 /* SceneDelegate.swift in Sources */,
 				7BDC1A542A6AAD40005C06C4 /* Endpoint.swift in Sources */,
 				7BDC1A562A6AAD47005C06C4 /* Contants.swift in Sources */,
+				7B58CF6B2A6D5995006EF42E /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

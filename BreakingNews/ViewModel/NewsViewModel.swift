@@ -11,9 +11,9 @@ class NewsViewModel {
     var articles: [ArticleModel] = []
     var eventHandler: ((_ event: Event) -> Void)?
     
-    func getTopHeadlines() {
+    func getTopHeadlines(country: String, category: String) {
         self.eventHandler?(.loading)
-        NetworkManager.shared.getTopHeadlines(country: "tr", category: "business", apiKey: Constants.API_KEY) { results in
+        NetworkManager.shared.getTopHeadlines(country: country, category: category, apiKey: Constants.API_KEY) { results in
             switch results {
             case .success(let news):
                 self.articles = news.articles

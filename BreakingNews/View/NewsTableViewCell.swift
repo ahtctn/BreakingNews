@@ -60,7 +60,7 @@ class NewsTableViewCell: UITableViewCell {
     
     //MARK: mvvm'e uygun değil.
     func configure(with item: ArticleModel) {
-        self.headerLabel.text = item.author
+        self.headerLabel.text = item.title
         self.descriptionLabel.text = item.author
         
     }
