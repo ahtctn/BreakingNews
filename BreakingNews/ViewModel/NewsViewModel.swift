@@ -18,6 +18,7 @@ class NewsViewModel {
             case .success(let news):
                 self.articles = news.articles
                 self.eventHandler?(.dataLoaded)
+                print(news.articles)
             case .failure(let error):
                 print(error.localizedDescription)
             }

@@ -14,6 +14,9 @@ class NewsViewController: UIViewController {
     var countryCode: String?
     var categoryCode: String?
     
+    var countryName: String = ""
+    var categoryName: String = ""
+    
     init(countryCode: String? = nil, categoryCode: String? = nil) {
         self.countryCode = countryCode
         self.categoryCode = categoryCode
@@ -40,8 +43,10 @@ class NewsViewController: UIViewController {
         
         observeEvent()
         setUI()
+        selectHeaderNames()
         
     }
+    
     
     //MARK: SET UI
     private func setUI() {
@@ -83,6 +88,42 @@ class NewsViewController: UIViewController {
         }
     }
     
+    private func selectHeaderNames() {
+        switch countryCode {
+        case Constants.Countries.usa:
+            countryName = "Amerika Birleşik Devletleri"
+        case Constants.Countries.turkey:
+            countryName = "Türkiye"
+        case Constants.Countries.netherlands:
+            countryName = "Hollanda"
+        case Constants.Countries.germany:
+            countryName = "Almanya"
+        case Constants.Countries.russia:
+            countryName = "Rusya"
+        default:
+            print("error var selectheader names")
+        }
+        
+        switch categoryCode {
+        case Constants.Categories.general:
+            categoryName = "Genel"
+        case Constants.Categories.business:
+            categoryName = "İş Dünyası"
+        case Constants.Categories.entertainment:
+            categoryName = "Eğlence"
+        case Constants.Categories.sports:
+            categoryName = "Spor"
+        case Constants.Categories.health:
+            categoryName = "Sağlık"
+        case Constants.Categories.science:
+            categoryName = "Bilim"
+        case Constants.Categories.technology:
+            categoryName = "Teknoloji"
+        default:
+            print("Selected header names error")
+        }
+    }
+    
 }
 
 extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -105,7 +146,7 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedArticle = self.viewModel.articleCell(at: indexPath.row)
-        let detailVC = DetailViewController(article: selectedArticle)
+        let detailVC = DetailViewController(article: selectedArticle, country: countryName, category: categoryName)
         self.navigationController?.pushViewController(detailVC, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
