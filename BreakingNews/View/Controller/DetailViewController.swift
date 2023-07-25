@@ -64,20 +64,39 @@ class DetailViewController: UIViewController {
         return label
     }()
     
-    private let linkButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Read More", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
+    private let linkButton: GenericLinkButton = {
+        let button = GenericLinkButton(buttonTitle: "Read More", contentMultiplier: 1.5)
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         view.backgroundColor = .white
         setupUI()
         configureArticle()
+        
     }
+    
+    private func setupNavigationBar() {
+        // Navigation title'ını "Haberler" olarak ayarlayalım
+        navigationItem.title = "Haberler"
+        
+        // Large title kullanılmasını sağlayalım
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        // Navigation bar rengini mavi yapalım
+        navigationController?.navigationBar.barTintColor = .blue
+        
+        // Navigation bar'ın içerik rengini beyaz yapalım
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        
+        // Navigation bar'ın arkaplan rengini transparan yapalım
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
     
     private func setupUI() {
         view.addSubview(categoryColorView)
@@ -90,54 +109,69 @@ class DetailViewController: UIViewController {
         view.addSubview(linkButton)
         
         categoryColorView.backgroundColor = setHeaderBackground()
+        linkButton.backgroundColor = setHeaderBackground()
         
-        NSLayoutConstraint.activate([
-            
+        let categoryColorViewConstraints = [
             //Background View Constraints
             categoryColorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             categoryColorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             categoryColorView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             categoryColorView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1),
-            
+        ]
+        
+        let headerLabelConstraints = [
             // Header Label constraints
             headerLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             headerLabel.leadingAnchor.constraint(equalTo: flagImageView.trailingAnchor, constant: 20),
             headerLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
             headerLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1), // Yüksekliği iki katına çıkaracak
-            
-            // Profile Image constraints
+        ]
+        
+        let flagImageViewConstraints = [
             // Profile Image constraints
             flagImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20), // Align with leading edge of view with 20 pixels gap
             flagImageView.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor), // Vertically align with the headerLabel
             
             flagImageView.widthAnchor.constraint(equalToConstant: 50), // 50x50 boyutunda
             flagImageView.heightAnchor.constraint(equalToConstant: 50),
-            
+        ]
+        
+        let coverImageConstraints = [
             // Cover Image constraints
             coverImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             coverImage.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 20),
             coverImage.widthAnchor.constraint(equalToConstant: 300),
             coverImage.heightAnchor.constraint(equalToConstant: 300),
-            
+        ]
+        
+        let titleLabelConstraints = [
             // Title Label constraints
             titleLabel.topAnchor.constraint(equalTo: coverImage.bottomAnchor, constant: 20),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            
+        ]
+        
+        let authorLabelConstraints = [
             // Author Label constraints
             authorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
             authorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             authorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            
+        ]
+        
+        let descriptionLabelConstraints = [
             // Description Label constraints
             descriptionLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 30),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            
+        ]
+        
+        let linkButtonConstraints = [
             // Link Button constraints
             linkButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             linkButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-        ])
+        ]
+        
+        NSLayoutConstraint.activateMultiple(categoryColorViewConstraints, headerLabelConstraints, flagImageViewConstraints, coverImageConstraints, titleLabelConstraints, authorLabelConstraints, descriptionLabelConstraints, linkButtonConstraints)
         
         linkButton.addTarget(self, action: #selector(openLinkInSafari), for: .touchUpInside)
     }
@@ -164,7 +198,21 @@ class DetailViewController: UIViewController {
     }
     
     private func configureArticle() {
-        let imageUrlString = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4C9uK0aKifAP_AzqJ751RA5_7utMqagTz1A&usqp=CAU"
+        let imageUrlString = Constants.optionalImageUrl
+        
+        if let imageUrlString = article.urlToImage {
+            // Eğer urlToImage değeri varsa ve geçerli bir URL ise, resmi yükle
+            coverImage.isHidden = false
+            coverImage.setImage(with: imageUrlString)
+        } else {
+            // Eğer urlToImage değeri yoksa veya geçerli bir URL değilse, coverImage'ı gizle
+            coverImage.isHidden = true
+            
+            titleLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 20).isActive = true
+            // Diğer elementlerin anchorlarındaki değişiklikleri aktifleştir
+            view.layoutIfNeeded()
+        }
+        
         let imageUrl = article.urlToImage ?? imageUrlString
         coverImage.setImage(with: imageUrl)
         
@@ -182,15 +230,15 @@ class DetailViewController: UIViewController {
         //Flag image set
         switch country {
         case "Amerika Birleşik Devletleri":
-            flagImageView.setImage(with: Constants.usaFlag)
+            flagImageView.setImage(with: Constants.Flags.usaFlag)
         case "Türkiye":
-            flagImageView.setImage(with: Constants.trFlag)
+            flagImageView.setImage(with: Constants.Flags.trFlag)
         case "Hollanda":
-            flagImageView.setImage(with: Constants.trFlag)
+            flagImageView.setImage(with: Constants.Flags.nlFlag)
         case "Almanya":
-            flagImageView.setImage(with: Constants.trFlag)
+            flagImageView.setImage(with: Constants.Flags.deFlag)
         case "Rusya":
-            flagImageView.setImage(with: Constants.trFlag)
+            flagImageView.setImage(with: Constants.Flags.ruFlag)
         default:
             flagImageView.setImage(with: Constants.optionalImageUrl)
         }
